@@ -46,7 +46,7 @@ class LinkedList
   end
 
   def at(index)
-    return 'OOPS' if index.negative?
+    return nil if index.negative?
 
     pointer = head
     counter = 0
@@ -108,6 +108,20 @@ class LinkedList
     end
     "#{list_string} nil"
   end
+
+  def insert_at(value, index)
+    if index.zero?
+      append(value)
+    elsif index == size
+      prepend(value)
+    else
+      return nil if at(index).nil?
+
+      new_node = Node.new(value, at(index))
+      at(index - 1).next_node = new_node
+      at(index).next_node = at(index + 1)
+    end
+  end
 end
 
 # tests
@@ -116,5 +130,6 @@ my_list.append(5)
 my_list.append(10)
 my_list.append(15)
 my_list.prepend(1)
-p my_list.find(1)
-p my_list.to_s
+my_list.insert_at(8, 2)
+p my_list.head
+p my_list.tail

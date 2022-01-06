@@ -6,61 +6,57 @@ require 'pry-byebug'
 
 # class to represent a linked list data structure
 class LinkedList
-  attr_accessor :list
+  attr_accessor :head, :tail
 
   def initialize
-    @list = nil
+    @head = nil
+    @tail = nil
   end
 
   def append(value)
-    new_tail = Node.new(value)
-    if list.nil?
-      self.list = new_tail
+    new_node = Node.new(value)
+    if head.nil?
+      self.tail = new_node
     else
-      pointer = list
-      pointer = pointer.next_node until pointer.next_node.nil?
-      pointer.next_node = new_tail
+      new_node.next_node = head
     end
+    self.head = new_node
   end
 
   def prepend(value)
-    self.list = list.nil? ? Node.new(value) : Node.new(value, list)
+    new_node = Node.new(value)
+    if head.nil?
+      self.head = new_node
+    else
+      tail.next_node = new_node
+    end
+    self.tail = new_node
   end
 
   def size
-    return 0 if list.nil?
+    return 0 if head.nil?
 
     counter = 1
-    pointer = list
-    until pointer.next_node.nil?
+    pointer = head
+    until pointer == tail
       counter += 1
       pointer = pointer.next_node
     end
     counter
   end
 
-  def head
-    list.nil? ? nil : list.value
-  end
-
-  def tail
-    return nil if list.nil?
-
-    pointer = list
-    pointer = pointer.next_node until pointer.next_node.nil?
-    pointer.value
-  end
-
   def at(index)
     return 'OOPS' if index.negative?
 
-    pointer = list
+    pointer = head
     counter = 0
     until counter == index
-      pointer = pointer.next_node unless pointer.nil?
+      break if pointer.nil?
+
+      pointer = pointer.next_node
       counter += 1
     end
-    pointer.nil? ? nil : pointer.value
+    pointer.nil? ? nil : pointer
   end
 end
 
@@ -70,4 +66,4 @@ my_list.append(5)
 my_list.append(10)
 my_list.append(15)
 my_list.prepend(1)
-p my_list.at(0)
+p my_list.at(2)

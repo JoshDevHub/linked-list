@@ -19,16 +19,19 @@ class LinkedList
     else
       pointer = head
       pointer = pointer.next_node until pointer.next_node.nil?
-      current_pointer.next_node = new_tail
+      pointer.next_node = new_tail
     end
+  end
+
+  def prepend(value)
+    self.head = head.nil? ? Node.new(value) : Node.new(value, head)
   end
 end
 
 # tests
 my_list = LinkedList.new
 my_list.append(5)
-p my_list.head
 my_list.append(10)
-p my_list.head
 my_list.append(15)
+my_list.prepend(1)
 p my_list.head

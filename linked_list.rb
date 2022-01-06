@@ -58,12 +58,25 @@ class LinkedList
     end
     pointer.nil? ? nil : pointer
   end
+
+  def pop
+    if head == tail
+      self.head = nil
+      self.tail = nil
+    else
+      pointer = head
+      pointer = pointer.next_node until pointer.next_node == tail
+      pointer.next_node = nil
+      self.tail = pointer
+    end
+  end
 end
 
 # tests
 my_list = LinkedList.new
-my_list.append(5)
-my_list.append(10)
-my_list.append(15)
-my_list.prepend(1)
-p my_list.at(2)
+# my_list.append(5)
+# my_list.append(10)
+# my_list.append(15)
+# my_list.prepend(1)
+my_list.pop
+p my_list.head

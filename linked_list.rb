@@ -54,17 +54,17 @@ class LinkedList
   end
 
   def at(index)
-    return nil if index.negative?
+    return nil if index.negative? || index + 1 > size
 
-    pointer = head
     counter = 0
-    until counter == index
-      break if pointer.nil?
+    return_element = nil
+    each do |element|
+      return_element = element if index == counter
+      break if return_element
 
-      pointer = pointer.next_node
       counter += 1
     end
-    pointer.nil? ? nil : pointer
+    return_element
   end
 
   def pop
@@ -72,10 +72,10 @@ class LinkedList
       self.head = nil
       self.tail = nil
     else
-      pointer = head
-      pointer = pointer.next_node until pointer.next_node == tail
-      pointer.next_node = nil
-      self.tail = pointer
+      new_tail = nil
+      each { |element| new_tail = element if element.next_node == tail }
+      new_tail.next_node = nil
+      self.tail = new_tail
     end
   end
 
@@ -146,10 +146,11 @@ end
 
 # tests
 my_list = LinkedList.new
-# my_list.append(5)
-# my_list.append(10)
-# my_list.append(15)
-# my_list.prepend(1)
-# my_list.remove_at(5)
-p my_list.size
-p my_list.test_size
+my_list.append(5)
+my_list.append(10)
+my_list.append(15)
+my_list.prepend(1)
+my_list.remove_at(5)
+my_list.pop
+p my_list.head
+

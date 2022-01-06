@@ -96,6 +96,18 @@ class LinkedList
     end
     pointer.value == value ? index : nil
   end
+
+  def to_s
+    return nil if head.nil?
+
+    list_string = ''
+    pointer = head
+    until pointer.nil?
+      list_string += "( #{pointer.value} ) -> "
+      pointer = pointer.next_node
+    end
+    "#{list_string} nil"
+  end
 end
 
 # tests
@@ -104,5 +116,5 @@ my_list.append(5)
 my_list.append(10)
 my_list.append(15)
 my_list.prepend(1)
-p my_list.find(16)
-p my_list.head
+p my_list.find(1)
+p my_list.to_s

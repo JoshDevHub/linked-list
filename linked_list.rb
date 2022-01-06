@@ -38,6 +38,10 @@ class LinkedList
     end
     counter
   end
+
+  def head
+    list.value
+  end
 end
 
 # tests
@@ -46,4 +50,4 @@ my_list.append(5)
 my_list.append(10)
 my_list.append(15)
 my_list.prepend(1)
-p my_list.size
+p my_list.head

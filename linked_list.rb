@@ -6,32 +6,32 @@ require 'pry-byebug'
 
 # class to represent a linked list data structure
 class LinkedList
-  attr_accessor :head
+  attr_accessor :list
 
   def initialize
-    @head = nil
+    @list = nil
   end
 
   def append(value)
     new_tail = Node.new(value)
-    if head.nil?
-      self.head = new_tail
+    if list.nil?
+      self.list = new_tail
     else
-      pointer = head
+      pointer = list
       pointer = pointer.next_node until pointer.next_node.nil?
       pointer.next_node = new_tail
     end
   end
 
   def prepend(value)
-    self.head = head.nil? ? Node.new(value) : Node.new(value, head)
+    self.list = list.nil? ? Node.new(value) : Node.new(value, list)
   end
 
   def size
-    return 0 if head.nil?
+    return 0 if list.nil?
 
     counter = 1
-    pointer = head
+    pointer = list
     until pointer.next_node.nil?
       counter += 1
       pointer = pointer.next_node

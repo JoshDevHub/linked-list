@@ -70,13 +70,39 @@ class LinkedList
       self.tail = pointer
     end
   end
+
+  def contains?(value)
+    return false if head.nil?
+
+    pointer = head
+    until pointer == tail
+      break if pointer.value == value
+
+      pointer = pointer.next_node
+    end
+    pointer.value == value
+  end
+
+  def find(value)
+    return nil if head.nil?
+
+    pointer = head
+    index = 0
+    until pointer == tail
+      break if pointer.value == value
+
+      pointer = pointer.next_node
+      index += 1
+    end
+    pointer.value == value ? index : nil
+  end
 end
 
 # tests
 my_list = LinkedList.new
-# my_list.append(5)
-# my_list.append(10)
-# my_list.append(15)
-# my_list.prepend(1)
-my_list.pop
+my_list.append(5)
+my_list.append(10)
+my_list.append(15)
+my_list.prepend(1)
+p my_list.find(16)
 p my_list.head

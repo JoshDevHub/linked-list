@@ -40,7 +40,15 @@ class LinkedList
   end
 
   def head
-    list.value
+    list.nil? ? nil : list.value
+  end
+
+  def tail
+    return nil if list.nil?
+
+    pointer = list
+    pointer = pointer.next_node until pointer.next_node.nil?
+    pointer.value
   end
 end
 

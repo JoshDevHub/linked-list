@@ -50,6 +50,18 @@ class LinkedList
     pointer = pointer.next_node until pointer.next_node.nil?
     pointer.value
   end
+
+  def at(index)
+    return 'OOPS' if index.negative?
+
+    pointer = list
+    counter = 0
+    until counter == index
+      pointer = pointer.next_node unless pointer.nil?
+      counter += 1
+    end
+    pointer.nil? ? nil : pointer.value
+  end
 end
 
 # tests
@@ -58,4 +70,4 @@ my_list.append(5)
 my_list.append(10)
 my_list.append(15)
 my_list.prepend(1)
-p my_list.head
+p my_list.at(0)

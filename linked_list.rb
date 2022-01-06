@@ -82,38 +82,28 @@ class LinkedList
   def contains?(value)
     return false if head.nil?
 
-    pointer = head
-    until pointer == tail
-      break if pointer.value == value
-
-      pointer = pointer.next_node
-    end
-    pointer.value == value
+    return_bool = false
+    each { |element| return_bool = true if element.value == value }
+    return_bool
   end
 
   def find(value)
     return nil if head.nil?
 
-    pointer = head
+    return_index = nil
     index = 0
-    until pointer == tail
-      break if pointer.value == value
-
-      pointer = pointer.next_node
+    each do |element|
+      return_index = index if element.value == value
       index += 1
     end
-    pointer.value == value ? index : nil
+    return_index
   end
 
   def to_s
     return nil if head.nil?
 
     list_string = ''
-    pointer = head
-    until pointer.nil?
-      list_string += "( #{pointer.value} ) -> "
-      pointer = pointer.next_node
-    end
+    each { |element| list_string += "( #{element.value} ) -> " }
     "#{list_string} nil"
   end
 
@@ -151,6 +141,5 @@ my_list.append(10)
 my_list.append(15)
 my_list.prepend(1)
 my_list.remove_at(5)
-my_list.pop
-p my_list.head
-
+# p my_list.head
+p my_list.to_s

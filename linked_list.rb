@@ -4,6 +4,8 @@ require_relative 'node'
 
 require 'pry-byebug'
 
+# rubocop: disable Metrics/ClassLength
+
 # class to represent a linked list data structure
 class LinkedList
   attr_accessor :head, :tail
@@ -122,6 +124,18 @@ class LinkedList
       at(index).next_node = at(index + 1)
     end
   end
+
+  def remove_at(index)
+    if index == size
+      pop
+    elsif at(index).nil?
+      nil
+    else
+      prev_node = at(index - 1)
+      next_node = at(index + 1)
+      prev_node.nil? ? self.head = next_node : prev_node.next_node = next_node
+    end
+  end
 end
 
 # tests
@@ -130,6 +144,6 @@ my_list.append(5)
 my_list.append(10)
 my_list.append(15)
 my_list.prepend(1)
-my_list.insert_at(8, 2)
+my_list.remove_at(5)
 p my_list.head
 p my_list.tail

@@ -26,6 +26,18 @@ class LinkedList
   def prepend(value)
     self.head = head.nil? ? Node.new(value) : Node.new(value, head)
   end
+
+  def size
+    return 0 if head.nil?
+
+    counter = 1
+    pointer = head
+    until pointer.next_node.nil?
+      counter += 1
+      pointer = pointer.next_node
+    end
+    counter
+  end
 end
 
 # tests
@@ -34,4 +46,4 @@ my_list.append(5)
 my_list.append(10)
 my_list.append(15)
 my_list.prepend(1)
-p my_list.head
+p my_list.size

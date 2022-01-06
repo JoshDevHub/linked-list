@@ -2,8 +2,6 @@
 
 require_relative 'node'
 
-require 'pry-byebug'
-
 # rubocop: disable Metrics/ClassLength
 
 # class to represent a linked list data structure
@@ -133,13 +131,3 @@ class LinkedList
     end
   end
 end
-
-# tests
-my_list = LinkedList.new
-my_list.append(5)
-my_list.append(10)
-my_list.append(15)
-my_list.prepend(1)
-my_list.remove_at(5)
-# p my_list.head
-p my_list.to_s

@@ -35,15 +35,21 @@ class LinkedList
     self.tail = new_node
   end
 
+  def each
+    return nil if head.nil?
+
+    pointer = head
+    until pointer.nil?
+      yield pointer
+      pointer = pointer.next_node
+    end
+  end
+
   def size
     return 0 if head.nil?
 
-    counter = 1
-    pointer = head
-    until pointer == tail
-      counter += 1
-      pointer = pointer.next_node
-    end
+    counter = 0
+    each { |_element| counter += 1 }
     counter
   end
 
@@ -140,10 +146,10 @@ end
 
 # tests
 my_list = LinkedList.new
-my_list.append(5)
-my_list.append(10)
-my_list.append(15)
-my_list.prepend(1)
-my_list.remove_at(5)
-p my_list.head
-p my_list.tail
+# my_list.append(5)
+# my_list.append(10)
+# my_list.append(15)
+# my_list.prepend(1)
+# my_list.remove_at(5)
+p my_list.size
+p my_list.test_size

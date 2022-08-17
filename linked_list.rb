@@ -2,10 +2,10 @@
 
 require_relative 'node'
 
-# rubocop: disable Metrics/ClassLength
-
 # class to represent a linked list data structure
 class LinkedList
+  include Enumerable
+
   attr_accessor :head, :tail
 
   def initialize
@@ -33,36 +33,23 @@ class LinkedList
     self.tail = new_node
   end
 
-  def each
+  def each(&block)
     return nil if head.nil?
 
     pointer = head
     until pointer.nil?
-      yield pointer
+      block.call(pointer)
       pointer = pointer.next_node
     end
   end
 
   def size
-    return 0 if head.nil?
-
-    counter = 0
-    each { |_element| counter += 1 }
-    counter
+    count
   end
 
   def at(index)
-    return nil if index.negative? || index + 1 > size
-
-    counter = 0
-    return_element = nil
-    each do |element|
-      return_element = element if index == counter
-      break if return_element
-
-      counter += 1
-    end
-    return_element
+    each_with_index { |node, step| return node if step == index }
+    nil
   end
 
   def pop
@@ -70,39 +57,21 @@ class LinkedList
       self.head = nil
       self.tail = nil
     else
-      new_tail = nil
-      each { |element| new_tail = element if element.next_node == tail }
+      new_tail = find { |node| node.next_node == tail }
       new_tail.next_node = nil
       self.tail = new_tail
     end
   end
 
   def contains?(value)
-    return false if head.nil?
-
-    return_bool = false
-    each { |element| return_bool = true if element.value == value }
-    return_bool
-  end
-
-  def find(value)
-    return nil if head.nil?
-
-    return_index = nil
-    index = 0
-    each do |element|
-      return_index = index if element.value == value
-      index += 1
-    end
-    return_index
+    include?(Node.new(value))
   end
 
   def to_s
-    return nil if head.nil?
-
-    list_string = ''
-    each { |element| list_string += "( #{element.value} ) -> " }
-    "#{list_string} nil"
+    reduce(+'') do |list_string, node|
+      trailing_string = node.next_node.nil? ? 'nil' : ''
+      "#{list_string}( #{node} ) -> #{trailing_string}"
+    end
   end
 
   def insert_at(value, index)

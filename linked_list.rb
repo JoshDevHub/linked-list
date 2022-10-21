@@ -1,36 +1,41 @@
 # frozen_string_literal: true
 
-require_relative 'node'
+require_relative "node"
 
 # class to represent a linked list data structure
 class LinkedList
   include Enumerable
 
-  attr_accessor :head, :tail
+  attr_reader :size
 
   def initialize
     @head = nil
     @tail = nil
+    @size = 0
   end
 
   def append(value)
-    new_node = Node.new(value)
-    if head.nil?
-      self.tail = new_node
-    else
-      new_node.next_node = head
-    end
-    self.head = new_node
-  end
+    @size += 1
 
-  def prepend(value)
-    new_node = Node.new(value)
-    if head.nil?
+    new_node = Node.new(value:)
+    if empty?
       self.head = new_node
     else
       tail.next_node = new_node
     end
     self.tail = new_node
+  end
+
+  def prepend(value)
+    @size += 1
+
+    new_node = Node.new(value:)
+    if empty?
+      self.tail = new_node
+    else
+      new_node.next_node = head
+    end
+    self.head = new_node
   end
 
   def each(&block)
@@ -43,16 +48,14 @@ class LinkedList
     end
   end
 
-  def size
-    count
-  end
-
   def at(index)
-    each_with_index { |node, step| return node if step == index }
+    each_with_index { |node, i| return node if i == index }
     nil
   end
 
   def pop
+    @size -= 1
+
     if head == tail
       self.head = nil
       self.tail = nil
@@ -64,39 +67,56 @@ class LinkedList
   end
 
   def contains?(value)
-    include?(Node.new(value))
+    any? { |node| node.value == value }
   end
 
   def to_s
-    reduce(+'') do |list_string, node|
-      trailing_string = node.next_node.nil? ? 'nil' : ''
+    reduce(+"") do |list_string, node|
+      trailing_string = node.next_node.nil? ? "nil" : ""
       "#{list_string}( #{node} ) -> #{trailing_string}"
     end
   end
 
   def insert_at(value, index)
+    return if index.negative? || index > size
+
     if index.zero?
       append(value)
     elsif index == size
       prepend(value)
     else
-      return nil if at(index).nil?
-
-      new_node = Node.new(value, at(index))
-      at(index - 1).next_node = new_node
-      at(index).next_node = at(index + 1)
+      @size += 1
+      prev_node = at(index - 1)
+      next_node = prev_node.next_node
+      prev_node.next_node = Node.new(value:, next_node:)
     end
   end
 
   def remove_at(index)
+    return if index.negative? || index > size
+
     if index == size
       pop
-    elsif at(index).nil?
-      nil
     else
+      @size -= 1
       prev_node = at(index - 1)
-      next_node = at(index + 1)
-      prev_node.nil? ? self.head = next_node : prev_node.next_node = next_node
+      next_node = prev_node&.next_node&.next_node
+      prev_node ? self.head = next_node : prev_node.next_node = next_node
     end
   end
+
+  private
+
+  attr_accessor :head, :tail
+
+  def empty?
+    head.nil?
+  end
 end
+
+list = LinkedList.new
+# list.append(5)
+# list.append(3)
+list.prepend(-1)
+p list.at(1)
+puts list

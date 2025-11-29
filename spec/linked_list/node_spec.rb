@@ -11,18 +11,29 @@ module LinkedList
     end
 
     describe "#==" do
-      it "is equal to a same value node" do
-        first_node = described_class.new(5)
-        second_node = described_class.new(5)
+      context "when comparing to another node" do
+        it "is equal to a same value node" do
+          first_node = described_class.new(5)
+          second_node = described_class.new(5)
 
-        expect(first_node).to eq second_node
+          expect(first_node).to eq second_node
+        end
+
+        it "not equal to a different value node" do
+          first_node = described_class.new(5)
+          second_node = described_class.new(10)
+
+          expect(first_node).not_to eq second_node
+        end
       end
 
-      it "not equal to a different value node" do
-        first_node = described_class.new(5)
-        second_node = described_class.new(10)
+      context "when comparing to some other object" do
+        it "does not equal the other object" do
+          node = described_class.new(5)
+          other_object = "hello there"
 
-        expect(first_node).not_to eq second_node
+          expect(node).not_to eq other_object
+        end
       end
     end
 

@@ -12,7 +12,7 @@ module LinkedList
 
     def to_s = value.to_s
 
-    def ==(other) = value == other.value
+    def ==(other) = other.is_a?(self.class) && value == other.value
 
     def tail? = next_node.nil?
   end

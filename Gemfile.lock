@@ -2,7 +2,17 @@ GEM
   remote: https://rubygems.org/
   specs:
     ast (2.4.3)
+    date (3.5.0)
+    debug (1.11.0)
+      irb (~> 1.10)
+      reline (>= 0.3.8)
     diff-lcs (1.6.2)
+    erb (6.0.0)
+    io-console (0.8.1)
+    irb (1.15.3)
+      pp (>= 0.6.0)
+      rdoc (>= 4.0.0)
+      reline (>= 0.4.2)
     json (2.16.0)
     language_server-protocol (3.17.0.5)
     lint_roller (1.1.0)
@@ -10,10 +20,22 @@ GEM
     parser (3.3.10.0)
       ast (~> 2.4.1)
       racc
+    pp (0.6.3)
+      prettyprint
+    prettyprint (0.2.0)
     prism (1.6.0)
+    psych (5.2.6)
+      date
+      stringio
     racc (1.8.1)
     rainbow (3.1.1)
+    rdoc (6.16.1)
+      erb
+      psych (>= 4.0.0)
+      tsort
     regexp_parser (2.11.3)
+    reline (0.6.3)
+      io-console (~> 0.5)
     rspec (3.13.2)
       rspec-core (~> 3.13.0)
       rspec-expectations (~> 3.13.0)
@@ -49,6 +71,8 @@ GEM
       lint_roller (~> 1.1)
       rubocop (~> 1.81)
     ruby-progressbar (1.13.0)
+    stringio (3.1.8)
+    tsort (0.2.0)
     unicode-display_width (3.2.0)
       unicode-emoji (~> 4.1)
     unicode-emoji (4.1.0)
@@ -58,6 +82,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  debug (~> 1.11)
   rspec
   rubocop
   rubocop-performance

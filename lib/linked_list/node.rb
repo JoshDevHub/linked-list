@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class LinkedList
+module LinkedList
   class Node
     attr_reader :value
     attr_accessor :next_node
@@ -11,5 +11,9 @@ class LinkedList
     end
 
     def to_s = value.to_s
+
+    def ==(other) = value == other.value
+
+    def tail? = next_node.nil?
   end
 end

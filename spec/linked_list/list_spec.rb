@@ -49,6 +49,62 @@ module LinkedList
       end
     end
 
+    describe "#append" do
+      subject(:list) { described_class.from_values(2, 4, 6, 8) }
+
+      it "adds a new item to the end of the list" do
+        expect { list.append(10) }.to change(list, :tail).from(8).to(10)
+      end
+
+      it "increases the size of the list by one" do
+        expect { list.append(10) }.to change(list, :size).from(4).to(5)
+      end
+
+      context "with an empty list" do
+        subject(:list) { described_class.new }
+
+        it "adds a new item to the beginning of the list" do
+          expect { list.append(10) }.to change(list, :head).from(nil).to(10)
+        end
+
+        it "adds a new item to the end of the list" do
+          expect { list.append(10) }.to change(list, :tail).from(nil).to(10)
+        end
+
+        it "increases the size of the list by one" do
+          expect { list.append(10) }.to change(list, :size).from(0).to(1)
+        end
+      end
+    end
+
+    describe "#prepend" do
+      subject(:list) { described_class.from_values(2, 4, 6, 8) }
+
+      it "adds a new item to the beginning of the list" do
+        expect { list.prepend(0) }.to change(list, :head).from(2).to(0)
+      end
+
+      it "increases the size of the list by one" do
+        expect { list.prepend(0) }.to change(list, :size).from(4).to(5)
+      end
+
+      context "with an empty list" do
+        subject(:list) { described_class.new }
+
+        it "adds a new item to the beginning of the list" do
+          expect { list.append(10) }.to change(list, :head).from(nil).to(10)
+        end
+
+        it "adds a new item to the end of the list" do
+          expect { list.append(10) }.to change(list, :tail).from(nil).to(10)
+        end
+
+        it "increases the size of the list by one" do
+          expect { list.append(10) }.to change(list, :size).from(0).to(1)
+        end
+      end
+    end
+
     describe "#at" do
       subject(:list) { described_class.from_values(2, 4, 6, 8) }
 

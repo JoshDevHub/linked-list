@@ -58,6 +58,10 @@ module LinkedList
       each_node.any? { value == it.value }
     end
 
+    def find(value)
+      each_node.find_index { value == it.value }
+    end
+
     def to_s
       reduce(+"") do |list_string, node|
         trailing_string = node.next_node.nil? ? "nil" : ""

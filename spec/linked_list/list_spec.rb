@@ -168,5 +168,20 @@ module LinkedList
         expect(list.contains?(4)).to be false
       end
     end
+
+    describe "#find" do
+      subject(:list) { described_class.from_values(5, 10, 15) }
+
+      it "returns the value's index for a value that's in the list", :aggregate_failures do
+        expect(list.find(5)).to eq 0
+        expect(list.find(10)).to eq 1
+        expect(list.find(15)).to eq 2
+      end
+
+      it "is `nil` for any value not in the list", :aggregate_failures do
+        expect(list.find(6)).to be_nil
+        expect(list.find(16)).to be_nil
+      end
+    end
   end
 end

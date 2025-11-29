@@ -1,8 +1,6 @@
 module LinkedList
   class List
-    include Enumerable
-
-    attr_accessor :size
+    attr_reader :size
 
     def self.from_values(*values)
       list = new
@@ -41,38 +39,19 @@ module LinkedList
       @head = new_node
     end
 
-    def each
-      return to_enum(:each) unless block_given?
-
-      pointer = @head
-      until pointer.nil?
-        yield(pointer.value)
-        pointer = pointer.next_node
-      end
-
-      self
-    end
-
     def at(index)
-      each_with_index { |value, i| return value if i == index }
+      each_node.with_index { |node, idx| return node.value if idx == index }
       nil
     end
 
     def pop
-      @size -= 1
+      return if empty?
 
-      if head == tail
-        self.head = nil
-        self.tail = nil
-      else
-        new_tail = find { |node| node.next_node == tail }
-        new_tail.next_node = nil
-        self.tail = new_tail
-      end
-    end
+      out = @head.value
+      @head = @head.next_node
 
-    def contains?(value)
-      any? { |node| node.value == value }
+      decrease_size
+      out
     end
 
     def to_s
@@ -112,15 +91,22 @@ module LinkedList
 
     private
 
+    def each_node
+      return to_enum(:each_node) unless block_given?
+
+      pointer = @head
+
+      while pointer
+        yield pointer
+        pointer = pointer.next_node
+      end
+
+      self
+    end
+
     def increase_size = @size += 1
     def decrease_size = @size -= 1
 
-    def tail_node
-      return if empty?
-
-      pointer = @head
-      pointer = pointer.next_node until pointer.tail?
-      pointer
-    end
+    def tail_node = each_node.find(&:tail?)
   end
 end

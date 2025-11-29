@@ -9,9 +9,10 @@ module LinkedList
         values = [5, 10, 15, 20]
         list = described_class.from_values(*values)
 
-        expect(list.to_a).to eq values
         expect(list.head).to eq 5
         expect(list.tail).to eq 20
+        expect(list.at(1)).to eq 10
+        expect(list.at(2)).to eq 15
         expect(list.size).to eq 4
       end
 
@@ -121,6 +122,34 @@ module LinkedList
 
       it "is `nil` for an index above the list's length" do
         expect(list.at(5)).to be_nil
+      end
+    end
+
+    describe "#pop" do
+      subject(:list) { described_class.from_values(2, 4, 6, 8) }
+
+      it "returns the original head's value" do
+        expect(list.pop).to eq 2
+      end
+
+      it "changes the current head to the original head's next node" do
+        expect { list.pop }.to change(list, :head).from(2).to(4)
+      end
+
+      it "decreases the size of the list by one" do
+        expect { list.pop }.to change(list, :size).from(4).to(3)
+      end
+
+      context "with an empty list" do
+        subject(:list) { described_class.new }
+
+        it "returns `nil`" do
+          expect(list.pop).to be_nil
+        end
+
+        it "does not change the size" do
+          expect { list.pop }.not_to change(list, :size)
+        end
       end
     end
   end

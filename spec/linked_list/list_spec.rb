@@ -212,5 +212,44 @@ module LinkedList
         end
       end
     end
+
+    describe "#insert_at" do
+      subject(:list) { described_class.from_values(1, 2, 3, 4) }
+
+      context "when inserting into the beginning" do
+        it "changes the head value to the new element" do
+          expect { list.insert_at(-5, 0) }.to change(list, :head).from(1).to(-5)
+        end
+
+        it "increases the size by one" do
+          expect { list.insert_at(-5, 0) }.to change(list, :size).by(1)
+        end
+      end
+
+      context "when inserting into the end" do
+        it "changes the tail value to the new element" do
+          expect { list.insert_at(-5, list.size) }.to change(list, :tail).from(4).to(-5)
+        end
+
+        it "increases the size by one" do
+          expect { list.insert_at(-5, list.size) }.to change(list, :size).by(1)
+        end
+      end
+
+      context "when inserting to the middle" do
+        it "writes a new node to the given index" do
+          expect { list.insert_at(-5, 1) }.to change { list.at(1) }.from(2).to(-5)
+        end
+
+        it "moves the element that was at the given index bacy one" do
+          list.insert_at(-5, 1)
+          expect(list.at(2)).to eq 2
+        end
+
+        it "increases the size by one" do
+          expect { list.insert_at(-5, list.size) }.to change(list, :size).by(1)
+        end
+      end
+    end
   end
 end

@@ -1,7 +1,5 @@
 module LinkedList
   class List
-    attr_reader :size
-
     def self.from_values(*values)
       list = new
       values.reverse_each { |value| list.prepend(value) }
@@ -11,7 +9,6 @@ module LinkedList
 
     def initialize
       @head = nil
-      @size = 0
     end
 
     def head = @head&.value
@@ -21,8 +18,6 @@ module LinkedList
     def empty? = @head.nil?
 
     def append(value)
-      increase_size
-
       new_node = Node.new(value)
       if empty?
         @head = new_node
@@ -33,24 +28,19 @@ module LinkedList
     end
 
     def prepend(value)
-      increase_size
-
       new_node = Node.new(value, @head)
       @head = new_node
     end
 
-    def at(index)
-      each_node.with_index { |node, idx| return node.value if idx == index }
-      nil
-    end
+    def size = each_node.count
+
+    def at(index) = node_by_index(index)&.value
 
     def pop
       return if empty?
 
       out = @head.value
       @head = @head.next_node
-
-      decrease_size
       out
     end
 
@@ -71,14 +61,11 @@ module LinkedList
       return if index.negative? || index > size
 
       if index.zero?
-        append(value)
-      elsif index == size
         prepend(value)
       else
-        @size += 1
-        prev_node = at(index - 1)
+        prev_node = node_by_index(index - 1)
         next_node = prev_node.next_node
-        prev_node.next_node = Node.new(value:, next_node:)
+        prev_node.next_node = Node.new(value, next_node)
       end
     end
 
@@ -88,7 +75,6 @@ module LinkedList
       if index == size
         pop
       else
-        @size -= 1
         prev_node = at(index - 1)
         next_node = prev_node&.next_node&.next_node
         prev_node ? self.head = next_node : prev_node.next_node = next_node
@@ -110,8 +96,12 @@ module LinkedList
       self
     end
 
-    def increase_size = @size += 1
-    def decrease_size = @size -= 1
+    def node_by_index(index)
+      each_node
+        .with_index
+        .find(proc { [] }) { |_, idx| index == idx }
+        .first
+    end
 
     def tail_node = each_node.find(&:tail?)
   end

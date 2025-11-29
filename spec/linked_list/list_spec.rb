@@ -183,5 +183,34 @@ module LinkedList
         expect(list.find(16)).to be_nil
       end
     end
+
+    describe "#to_s" do
+      context "with a list of multiple items" do
+        it "returns a string representation of the linked list" do
+          list = described_class.from_values(1, 2, 3, 4)
+          expected_string = "( 1 ) -> ( 2 ) -> ( 3 ) -> ( 4 ) -> nil"
+
+          expect(list.to_s).to eq expected_string
+        end
+      end
+
+      context "with a list of only a single item" do
+        it "returns a string representation of the one value and `nil`" do
+          list = described_class.from_values(5)
+          expected_string = "( 5 ) -> nil"
+
+          expect(list.to_s).to eq expected_string
+        end
+      end
+
+      context "with an empty list" do
+        it "it returns the string 'nil'" do
+          list = described_class.new
+          expected_string = "nil"
+
+          expect(list.to_s).to eq expected_string
+        end
+      end
+    end
   end
 end

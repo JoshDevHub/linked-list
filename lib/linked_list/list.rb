@@ -63,10 +63,8 @@ module LinkedList
     end
 
     def to_s
-      reduce(+"") do |list_string, node|
-        trailing_string = node.next_node.nil? ? "nil" : ""
-        "#{list_string}( #{node} ) -> #{trailing_string}"
-      end
+      list_string = each_node.map { |node| "( #{node} ) -> " }.join
+      "#{list_string}nil"
     end
 
     def insert_at(value, index)

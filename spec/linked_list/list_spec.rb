@@ -152,5 +152,21 @@ module LinkedList
         end
       end
     end
+
+    describe "#contains?" do
+      subject(:list) { described_class.from_values(1, 2, 3) }
+
+      it "returns true if the element is in the list", :aggregate_failures do
+        expect(list.contains?(1)).to be true
+        expect(list.contains?(2)).to be true
+        expect(list.contains?(3)).to be true
+      end
+
+      it "returns false if the element is not in the list", :aggregate_failures do
+        expect(list.contains?(0)).to be false
+        expect(list.contains?(-1)).to be false
+        expect(list.contains?(4)).to be false
+      end
+    end
   end
 end

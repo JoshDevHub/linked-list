@@ -54,6 +54,10 @@ module LinkedList
       out
     end
 
+    def contains?(value)
+      each_node.any? { value == it.value }
+    end
+
     def to_s
       reduce(+"") do |list_string, node|
         trailing_string = node.next_node.nil? ? "nil" : ""

@@ -3,24 +3,24 @@ module LinkedList
     include Enumerable
 
     attr_accessor :size
-    attr_writer :head, :tail
+
+    def self.from_values(*values)
+      list = new
+      values.reverse_each { |value| list.prepend(value) }
+
+      list
+    end
 
     def initialize
       @head = nil
-      @tail = nil
       @size = 0
     end
 
     def head = @head&.value
 
-    def tail
-      return if @head.nil?
+    def tail = tail_node&.value
 
-      pointer = @head
-      pointer = pointer.next_node until pointer.tail?
-
-      pointer.value
-    end
+    def empty? = @head.nil?
 
     def append(value)
       increase_size
@@ -28,36 +28,33 @@ module LinkedList
       new_node = Node.new(value)
       if empty?
         @head = new_node
-      else
-        tail.next_node = new_node
+        return
       end
-      self.tail = new_node
+
+      tail_node.next_node = new_node
     end
 
     def prepend(value)
-      @size += 1
+      increase_size
 
-      new_node = Node.new(value)
-      if empty?
-        self.tail = new_node
-      else
-        new_node.next_node = @head
-      end
-      self.head = new_node
+      new_node = Node.new(value, @head)
+      @head = new_node
     end
 
-    def each(&block)
-      return nil if head.nil?
+    def each
+      return to_enum(:each) unless block_given?
 
-      pointer = head
+      pointer = @head
       until pointer.nil?
-        block.call(pointer)
+        yield(pointer.value)
         pointer = pointer.next_node
       end
+
+      self
     end
 
     def at(index)
-      each_with_index { |node, i| return node if i == index }
+      each_with_index { |value, i| return value if i == index }
       nil
     end
 
@@ -115,10 +112,15 @@ module LinkedList
 
     private
 
-    def empty?
-      @head.nil?
-    end
-
     def increase_size = @size += 1
+    def decrease_size = @size -= 1
+
+    def tail_node
+      return if empty?
+
+      pointer = @head
+      pointer = pointer.next_node until pointer.tail?
+      pointer
+    end
   end
 end

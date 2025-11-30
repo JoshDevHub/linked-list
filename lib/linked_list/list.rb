@@ -73,7 +73,7 @@ module LinkedList
       pop and return if index.zero?
 
       prev_node = node_by_index(index - 1)
-      next_node = prev_node.next_node&.next_node
+      next_node = prev_node.second_successor
       prev_node.next_node = next_node
     end
 

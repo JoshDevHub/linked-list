@@ -56,5 +56,27 @@ module LinkedList
         end
       end
     end
+
+    describe "#second_successor" do
+      it "returns the node's second_successor if it has one" do
+        second_successor = described_class.new(30)
+        next_node = described_class.new(20, second_successor)
+        node = described_class.new(10, next_node)
+
+        expect(node.second_successor).to eq second_successor
+      end
+
+      it "is `nil` for a node without a second successor" do
+        next_node = described_class.new(20)
+        node = described_class.new(10, next_node)
+
+        expect(node.second_successor).to be_nil
+      end
+
+      it "is `nil` for a node without a next_node" do
+        node = described_class.new(10)
+        expect(node.second_successor).to be_nil
+      end
+    end
   end
 end

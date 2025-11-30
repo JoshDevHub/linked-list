@@ -15,5 +15,7 @@ module LinkedList
     def ==(other) = other.is_a?(self.class) && value == other.value
 
     def tail? = next_node.nil?
+
+    def second_successor = next_node&.next_node
   end
 end

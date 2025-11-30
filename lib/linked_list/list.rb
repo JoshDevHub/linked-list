@@ -58,7 +58,7 @@ module LinkedList
     end
 
     def insert_at(value, index)
-      return if index.negative? || index > size
+      raise IndexError if index.negative? || index > size
 
       prepend(value) and return if index.zero?
 
@@ -68,7 +68,7 @@ module LinkedList
     end
 
     def remove_at(index)
-      return if index.negative? || index >= size
+      raise IndexError if index.negative? || index >= size
 
       pop and return if index.zero?
 

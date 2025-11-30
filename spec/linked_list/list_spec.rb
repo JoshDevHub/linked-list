@@ -250,6 +250,18 @@ module LinkedList
           expect { list.insert_at(-5, list.size) }.to change(list, :size).by(1)
         end
       end
+
+      context "when inserting out of bounds below the list's boundaries" do
+        it "raises an IndexError" do
+          expect { list.insert_at(1, -1) }.to raise_error(IndexError)
+        end
+      end
+
+      context "when inserting out of bounds above the list's boundaries" do
+        it "raises an IndexError" do
+          expect { list.insert_at(5, list.size + 1) }.to raise_error(IndexError)
+        end
+      end
     end
 
     describe "#remove_at" do
@@ -286,6 +298,18 @@ module LinkedList
 
         it "decreases the size by one" do
           expect { list.remove_at(2) }.to change(list, :size).by(-1)
+        end
+      end
+
+      context "when removing out of bounds below the list's boundaries" do
+        it "raises an index error" do
+          expect { list.remove_at(-1) }.to raise_error(IndexError)
+        end
+      end
+
+      context "when removing out of bounds above the list's boundaries" do
+        it "raises an index error" do
+          expect { list.remove_at(list.size) }.to raise_error(IndexError)
         end
       end
     end

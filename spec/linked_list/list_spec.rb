@@ -58,7 +58,7 @@ module LinkedList
       end
 
       it "increases the size of the list by one" do
-        expect { list.append(10) }.to change(list, :size).from(4).to(5)
+        expect { list.append(10) }.to change(list, :size).by(1)
       end
 
       context "with an empty list" do
@@ -73,7 +73,7 @@ module LinkedList
         end
 
         it "increases the size of the list by one" do
-          expect { list.append(10) }.to change(list, :size).from(0).to(1)
+          expect { list.append(10) }.to change(list, :size).by(1)
         end
       end
     end
@@ -86,7 +86,7 @@ module LinkedList
       end
 
       it "increases the size of the list by one" do
-        expect { list.prepend(0) }.to change(list, :size).from(4).to(5)
+        expect { list.prepend(0) }.to change(list, :size).by(1)
       end
 
       context "with an empty list" do
@@ -101,7 +101,7 @@ module LinkedList
         end
 
         it "increases the size of the list by one" do
-          expect { list.append(10) }.to change(list, :size).from(0).to(1)
+          expect { list.append(10) }.to change(list, :size).by(1)
         end
       end
     end
@@ -137,7 +137,7 @@ module LinkedList
       end
 
       it "decreases the size of the list by one" do
-        expect { list.pop }.to change(list, :size).from(4).to(3)
+        expect { list.pop }.to change(list, :size).by(1)
       end
 
       context "with an empty list" do
@@ -204,7 +204,7 @@ module LinkedList
       end
 
       context "with an empty list" do
-        it "it returns the string 'nil'" do
+        it "returns the string 'nil'" do
           list = described_class.new
           expected_string = "nil"
 

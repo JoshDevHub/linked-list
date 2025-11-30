@@ -251,5 +251,43 @@ module LinkedList
         end
       end
     end
+
+    describe "#remove_at" do
+      subject(:list) { described_class.from_values(1, 2, 3, 4) }
+
+      context "when removing at the beginning" do
+        it "changes the head node to the element that was at the first index" do
+          expect { list.remove_at(0) }.to change(list, :head).from(1).to(2)
+        end
+
+        it "decreases the size by one" do
+          expect { list.remove_at(0) }.to change(list, :size).by(-1)
+        end
+      end
+
+      context "when removing at the end of the list" do
+        it "changes the tail node to be the element that was second-to-last" do
+          expect { list.remove_at(3) }.to change(list, :tail).from(4).to(3)
+        end
+
+        it "decreases the size by one" do
+          expect { list.remove_at(3) }.to change(list, :size).by(-1)
+        end
+      end
+
+      context "when removing from the middle of the list" do
+        it "removes the node at the given index" do
+          expect { list.remove_at(2) }.to change { list.contains?(3) }.from(true).to(false)
+        end
+
+        it "places the original element's `next_node` at the given index" do
+          expect { list.remove_at(2) }.to change { list.at(2) }.from(3).to(4)
+        end
+
+        it "decreases the size by one" do
+          expect { list.remove_at(2) }.to change(list, :size).by(-1)
+        end
+      end
+    end
   end
 end

@@ -70,14 +70,14 @@ module LinkedList
     end
 
     def remove_at(index)
-      return if index.negative? || index > size
+      return if index.negative? || index >= size
 
-      if index == size
+      if index.zero?
         pop
       else
-        prev_node = at(index - 1)
-        next_node = prev_node&.next_node&.next_node
-        prev_node ? self.head = next_node : prev_node.next_node = next_node
+        prev_node = node_by_index(index - 1)
+        next_node = prev_node.next_node&.next_node
+        prev_node.next_node = next_node
       end
     end
 

@@ -60,25 +60,21 @@ module LinkedList
     def insert_at(value, index)
       return if index.negative? || index > size
 
-      if index.zero?
-        prepend(value)
-      else
-        prev_node = node_by_index(index - 1)
-        next_node = prev_node.next_node
-        prev_node.next_node = Node.new(value, next_node)
-      end
+      prepend(value) and return if index.zero?
+
+      prev_node = node_by_index(index - 1)
+      next_node = prev_node.next_node
+      prev_node.next_node = Node.new(value, next_node)
     end
 
     def remove_at(index)
       return if index.negative? || index >= size
 
-      if index.zero?
-        pop
-      else
-        prev_node = node_by_index(index - 1)
-        next_node = prev_node.next_node&.next_node
-        prev_node.next_node = next_node
-      end
+      pop and return if index.zero?
+
+      prev_node = node_by_index(index - 1)
+      next_node = prev_node.next_node&.next_node
+      prev_node.next_node = next_node
     end
 
     private

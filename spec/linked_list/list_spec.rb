@@ -137,7 +137,7 @@ module LinkedList
       end
 
       it "decreases the size of the list by one" do
-        expect { list.pop }.to change(list, :size).by(1)
+        expect { list.pop }.to change(list, :size).by(-1)
       end
 
       context "with an empty list" do

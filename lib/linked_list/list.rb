@@ -58,14 +58,19 @@ module LinkedList
       "#{each_node.to_a.join}nil"
     end
 
-    def insert_at(index, value)
+    def insert_at(index, *values)
       raise IndexError if index.negative? || index > size
 
-      prepend(value) and return if index.zero?
+      if index.zero?
+        values.reverse_each { prepend(it) }
+        return
+      end
 
       prev_node = node_by_index(index - 1)
-      next_node = prev_node.next_node
-      prev_node.next_node = Node.new(value, next_node)
+      until values.empty?
+        new_node = Node.new(values.pop, prev_node.next_node)
+        prev_node.next_node = new_node
+      end
     end
 
     def remove_at(index)

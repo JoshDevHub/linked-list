@@ -269,6 +269,20 @@ module LinkedList
           expect { list.insert_at(list.size + 1, 5) }.to raise_error(IndexError)
         end
       end
+
+      context "when inserting multiple values" do
+        it "integrates all of the given values into the list" do
+          list.insert_at(1, -5, -4, -3)
+
+          expect(list.to_s).to eq "( 1 ) -> ( -5 ) -> ( -4 ) -> ( -3 ) -> ( 2 ) -> ( 3 ) -> ( 4 ) -> nil"
+        end
+
+        it "can add multiple values to the beginning" do
+          list.insert_at(0, -5, -4, -3)
+
+          expect(list.to_s).to eq "( -5 ) -> ( -4 ) -> ( -3 ) -> ( 1 ) -> ( 2 ) -> ( 3 ) -> ( 4 ) -> nil"
+        end
+      end
     end
 
     describe "#remove_at" do

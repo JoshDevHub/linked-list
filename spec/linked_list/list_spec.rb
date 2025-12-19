@@ -225,48 +225,48 @@ module LinkedList
 
       context "when inserting into the beginning" do
         it "changes the head value to the new element" do
-          expect { list.insert_at(-5, 0) }.to change(list, :head).from(1).to(-5)
+          expect { list.insert_at(0, -5) }.to change(list, :head).from(1).to(-5)
         end
 
         it "increases the size by one" do
-          expect { list.insert_at(-5, 0) }.to change(list, :size).by(1)
+          expect { list.insert_at(0, -5) }.to change(list, :size).by(1)
         end
       end
 
       context "when inserting into the end" do
         it "changes the tail value to the new element" do
-          expect { list.insert_at(-5, list.size) }.to change(list, :tail).from(4).to(-5)
+          expect { list.insert_at(list.size, -5) }.to change(list, :tail).from(4).to(-5)
         end
 
         it "increases the size by one" do
-          expect { list.insert_at(-5, list.size) }.to change(list, :size).by(1)
+          expect { list.insert_at(list.size, -5) }.to change(list, :size).by(1)
         end
       end
 
       context "when inserting to the middle" do
         it "writes a new node to the given index" do
-          expect { list.insert_at(-5, 1) }.to change { list.at(1) }.from(2).to(-5)
+          expect { list.insert_at(1, -5) }.to change { list.at(1) }.from(2).to(-5)
         end
 
         it "moves the element that was at the given index bacy one" do
-          list.insert_at(-5, 1)
+          list.insert_at(1, -5)
           expect(list.at(2)).to eq 2
         end
 
         it "increases the size by one" do
-          expect { list.insert_at(-5, list.size) }.to change(list, :size).by(1)
+          expect { list.insert_at(list.size, -5) }.to change(list, :size).by(1)
         end
       end
 
       context "when inserting out of bounds below the list's boundaries" do
         it "raises an IndexError" do
-          expect { list.insert_at(1, -1) }.to raise_error(IndexError)
+          expect { list.insert_at(-1, 1) }.to raise_error(IndexError)
         end
       end
 
       context "when inserting out of bounds above the list's boundaries" do
         it "raises an IndexError" do
-          expect { list.insert_at(5, list.size + 1) }.to raise_error(IndexError)
+          expect { list.insert_at(list.size + 1, 5) }.to raise_error(IndexError)
         end
       end
     end

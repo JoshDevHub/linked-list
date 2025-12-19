@@ -58,7 +58,7 @@ module LinkedList
       "#{each_node.to_a.join}nil"
     end
 
-    def insert_at(value, index)
+    def insert_at(index, value)
       raise IndexError if index.negative? || index > size
 
       prepend(value) and return if index.zero?

@@ -10,7 +10,7 @@ module LinkedList
       @next_node = next_node
     end
 
-    def to_s = value.to_s
+    def to_s = "( #{value} ) -> "
 
     def ==(other) = other.is_a?(self.class) && value == other.value
 

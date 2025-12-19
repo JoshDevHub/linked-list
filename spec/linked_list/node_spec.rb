@@ -5,8 +5,8 @@ require_relative "../../lib/linked_list"
 module LinkedList
   RSpec.describe Node do
     describe "#to_s" do
-      it "returns the value as a string" do
-        expect(described_class.new(5).to_s).to eq "5"
+      it "returns the string representation of the node" do
+        expect(described_class.new(5).to_s).to eq "( 5 ) -> "
       end
     end
 

@@ -204,11 +204,10 @@ module LinkedList
       end
 
       context "with an empty list" do
-        it "returns the string 'nil'" do
+        it "returns an empty string" do
           list = described_class.new
-          expected_string = "nil"
 
-          expect(list.to_s).to eq expected_string
+          expect(list.to_s).to eq ""
         end
       end
     end

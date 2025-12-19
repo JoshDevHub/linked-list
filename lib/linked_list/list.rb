@@ -53,8 +53,9 @@ module LinkedList
     end
 
     def to_s
-      list_string = each_node.map { |node| "( #{node} ) -> " }.join
-      "#{list_string}nil"
+      return "" if empty?
+
+      "#{each_node.to_a.join}nil"
     end
 
     def insert_at(value, index)

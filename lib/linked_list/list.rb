@@ -48,7 +48,7 @@ module LinkedList
       each_node.any? { value == it.value }
     end
 
-    def find(value)
+    def index(value)
       each_node.find_index { value == it.value }
     end
 

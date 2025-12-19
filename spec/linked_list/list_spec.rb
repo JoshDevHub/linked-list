@@ -182,6 +182,14 @@ module LinkedList
         expect(list.index(6)).to be_nil
         expect(list.index(16)).to be_nil
       end
+
+      context "with a list that has duplicate values" do
+        subject(:list) { described_class.from_values(1, 2, 3, 3, 3, 3) }
+
+        it "returns the first index with the matching value" do
+          expect(list.index(3)).to eq 2
+        end
+      end
     end
 
     describe "#to_s" do
